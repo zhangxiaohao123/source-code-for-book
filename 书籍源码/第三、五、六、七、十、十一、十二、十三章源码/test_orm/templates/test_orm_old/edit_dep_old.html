@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改部门</title>
+</head>
+<body>
+<div align="center">
+    <h1>修改部门</h1>
+    <hr>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" id="id" value="{{ department.id }}" >
+        <div>
+            <label>部门：</label>
+            　　<input type="text" name="dep_name" id="dep_name" value="{{ department.dep_name }}">
+        </div>
+        <br>
+        <div>
+            <label>备注：</label>
+            　　<input type="text" name="dep_script" id="dep_script" value="{{ department.dep_script }}">
+        </div>
+        <br>
+
+        <div><input type="submit" value="保存"></div>
+
+
+    </form>
+    {{ error_info }}
+</div>
+</body>
+</html>
+

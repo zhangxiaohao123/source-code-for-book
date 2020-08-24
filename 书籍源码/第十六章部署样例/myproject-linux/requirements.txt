@@ -1,0 +1,9 @@
+Django==2.1.4
+django-ckeditor==5.7.1
+django-haystack==2.8.1
+django-js-asset==1.2.2
+jieba==0.39
+Pillow==6.0.0
+PyMySQL==0.9.3
+pytz==2019.1
+Whoosh==2.7.4

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+    <h1>增加员工</h1>
+    <hr>
+    <form action="/test_orm_old/add_employee_old/" method="post">
+        {% csrf_token %}
+        <div>
+            <label>姓名：</label>
+            　　<input type="text" name="name" id="name">
+        </div>
+        <br>
+        <div>
+            <label>邮箱：</label>
+            　　<input type="text" name="email" id="email">
+        </div>
+        <br>
+         <div>
+            <label>工资：</label>
+            　　<input type="text" name="salary" id="salary">
+        </div>
+        <br>
+        <div>
+            <label>电话地址：</label>
+            <select name="info" id="info">
+                {% for info in info_list %}
+                <option value="{{ info.id}}"> {{ info.phone }}||{{ info.address }}</option>
+                {% endfor %}
+            </select>
+            　
+        </div>
+        <br>
+        <div>
+            <label>部门：</label>
+            <select name="dep" id="dep">
+                {% for dep in dep_list %}
+                <option value="{{ dep.id}}"> {{ dep.dep_name }}</option>
+                {% endfor %}
+            </select>
+            　
+        </div>
+        <br>
+        <div>
+            <label>团体：</label>
+            <select name="group" id="group"   multiple="true" >
+                  {% for group  in group_list %}
+                <option value="{{ group.id}}"> {{ group.group_name }}</option>
+                {% endfor %}
+            </select>
+            　
+        </div>
+        <br>
+        <div><input type="submit" value="增加"></div>
+
+
+    </form>
+</div>
+</body>
+</html>

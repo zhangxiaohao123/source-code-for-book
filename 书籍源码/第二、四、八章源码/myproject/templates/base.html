@@ -1,0 +1,65 @@
+
+<!-- saved from url=(0042)https://v3.bootcss.com/examples/dashboard/ -->
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="https://v3.bootcss.com/favicon.ico">
+
+    <title>test系统</title>
+    <!-- Bootstrap core CSS -->
+    {% load static %}
+
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'dashboard.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/font-awesome.min.css'%}">
+
+    {% block page-css %}
+
+    {% endblock %}
+</head>
+
+<body>
+
+{% include 'header.html' %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="{% block publisher_class %}{% endblock %}"><a href="/publisher_list/">出版社列表页</a></li>
+                <li class="{% block book_class %}{% endblock %}"><a href="/book_list/">书籍列表</a></li>
+                <li class="{% block author_class %}{% endblock %}"><a href="/author_list/">作者列表</a></li>
+            </ul>
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            {# 这里是每个页面不同的部分 #}
+            {% block page-main %}
+
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{% static 'jquery-3.3.1.js'%}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js'%}"></script>
+{% block page-js %}
+
+{% endblock %}
+</body>
+</html>

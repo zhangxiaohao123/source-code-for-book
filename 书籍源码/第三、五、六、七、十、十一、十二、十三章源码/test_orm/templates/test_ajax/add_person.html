@@ -1,0 +1,128 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Django Form样例</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="icon" href="{% static 'favicon.ico'　%}" 　>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/font-awesome.min.css'%}">
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <div class="page-header">
+                <h1>Django Form及AJAX测试
+                    <small>--增加</small>
+                </h1>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">增加</h3> <!--这里加标题 //-->
+                </div>
+                <div class="panel-body">
+                    <form action="/test_ajax/add_person/" method="post" class="form-horizontal " novalidate>
+                        {% csrf_token %}
+                        {{ formobj.id }}
+                        <div class="form-group">
+                            <label for="{{ formobj.name.id_for_label }}" class="col-md-2 control-label">
+                                {{ formobj.name.label }}</label>
+                            <div class="col-md-8">
+                                {{ formobj.name }}
+                                <span class="help-block">{{ formobj.name.errors.0 }}</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="{{ formobj.email.id_for_label }}" class="col-md-2 control-label">
+                                {{ formobj.email.label }}</label>
+                            <div class="col-md-8">
+                                {{ formobj.email }}
+                                <span class="help-block">{{ formobj.email.errors.0 }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ formobj.salary.id_for_label }}" class="col-md-2 control-label">
+                                {{ formobj.salary.label }}</label>
+                            <div class="col-md-8">
+                                {{ formobj.salary }}
+                                <span class="help-block">{{ formobj.salary.errors.0 }}</span>
+                            </div>
+                        </div>
+
+                        <div align="center">
+                            <!-- type='submit'会出错，请注意！！！  -->
+                            <input type="button" class="btn btn-primary" value="增加" id="add_button">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js'%}"></script>
+<script>
+ $("form input").focus(function () {
+        $(this).next("span").text("").parent().parent().removeClass("has-error");
+    });
+ // AJAX提交注册的数据
+    $("#add_button").click(function () {
+        // 取到用户填写的注册数据，向后端发送AJAX请求
+        var formData = new FormData();
+        formData.append("name", $("#id_name").val());
+        formData.append("email", $("#id_email").val());
+        formData.append("salary", $("#id_salary").val());
+        formData.append("csrfmiddlewaretoken", $("[name='csrfmiddlewaretoken']").val());
+        $.ajax({
+            url: "/test_ajax/add_person/",
+            type: "post",
+            processData: false,  // 告诉jQuery不要处理我的数据
+            contentType: false,  // 告诉jQuery不要设置content类型
+            data: formData,
+            success:function (data) {
+                 if (data.status){
+                    $.each(data.url_or_msg, function (k,v) {
+
+                        //alert(v[0]+$('#id_name').next("span").text())
+                        $("#id_"+k).next("span").text(v[0]).parent().parent().addClass("has-error");
+                    })
+                }else {
+                    // 没有错误就跳转到指定页面
+
+                    location.href = data.url_or_msg;
+                }
+            }
+        })
+    });
+
+ $("#id_name").on("blur", function () {
+        // 取到用户填写的值
+        var name = $(this).val();
+        // 发请求
+        $.ajax({
+            url: "/test_ajax/test_name/",
+            type: "get",
+            data: {"name": name},
+            success: function (data) {
+                if (data.status){
+                    // 用户名已被注册
+                    $("#id_name").next("span").text(data.message).parent().parent().addClass("has-error");
+                }
+            }
+        })
+    })
+
+
+</script>
+</body>
+</html>

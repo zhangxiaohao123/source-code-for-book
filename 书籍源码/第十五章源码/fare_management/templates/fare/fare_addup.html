@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block page_content %}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">车费统计</div>
+    <div class="panel-body">
+
+
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <th class="bg-info text-center">用车部门</th>
+             <th class="bg-info text-center">年月</th>
+            <th class="bg-info text-center">公里数(未审)</th>
+            <th class="bg-info text-center">车费（未审）</th>
+            <th class="bg-info text-center">公里数（已审）</th>
+            <th class="bg-info text-center">车费（已审）</th>
+            <th class="bg-info text-center">公里数（小计）</th>
+            <th class="bg-info text-center">车费（小计）</th>
+
+
+            </thead>
+            <tbody>
+            {% for k,v in faredic.items %}
+            <tr >
+                <td>{{ v.dep__dep_name }}</td>
+                <td>{{v.drive_date__year}}-{{ v.drive_date__month }}</td>
+                <td class="text-right">{{ v.sum_distance0 }}</td>
+                <td class="text-right">{{ v.sum_fare0 }}</td>
+                <td class="text-right">{{ v.sum_distance1 }}</td>
+                <td class="text-right">{{ v.sum_fare1 }}</td>
+                <td class="text-right">{{ v.sum_distance }}</td>
+                <td class="text-right">{{ v.sum_fare }}</td>
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
+

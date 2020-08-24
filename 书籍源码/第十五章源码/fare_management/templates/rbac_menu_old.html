@@ -1,0 +1,18 @@
+{% for k,item in menu_result.items %}
+ <div class="top_menu" >{{ item.menu_title }}</div>
+     {% if item.active %}
+            <div class="sub_menu " >
+        {% else %}
+            <div class="sub_menu nodisplay"  >
+        {% endif %}
+        {% for v in item.children %}
+            {% if v.active %}
+                    <a href="{{ v.url }}" class="active"><h4>{{ v.title }}</h4></a>
+            {% else %}
+                    <a href="{{ v.url }}"><h4>{{ v.title }}</h4></a>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endfor %}
+
+

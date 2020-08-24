@@ -1,0 +1,47 @@
+{% load static %}
+{% load custom_tag %}
+<html lang="zh-CN">
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>车费管理系统</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="icon" href="{% static 'favicon.ico'　 %}" 　>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'dashboard.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/font-awesome.min.css' %}">
+    <script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'rbac/rbac.css' %}">
+     <script src="{% static 'rbac/rbac.js' %}"></script>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <div>
+            {% include 'header.html' %}
+        </div>
+    </div>
+    <div class="row" style="margin-top: 60px">
+          {% rbac_menu request %}
+
+        <div class=" col-sm-8 col-sm-offset-4 col-md-10 col-md-offset-2 main  main">
+            {# 这个block块写继承页面个性的内容，即不同于母板的内容 #}
+            {% block page_content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+

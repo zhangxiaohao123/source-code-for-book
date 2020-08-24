@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block page_content %}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">今日车费上报</div>
+    <div class="panel-body">
+        {% if pagpermission.has_add %}
+         <div class="row">
+                <div class="col-md-offset-1 col-md-10" style="margin-bottom: 15px;">
+                    <a href="/fare/fareadd/" type="button" class="btn btn-primary " style="float:right;"><i
+                            class="fa fa-plus" aria-hidden="true" style="margin-right: 6px;"></i>增加</a>
+                </div>
+            </div>
+         {% endif %}
+
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+            <th class="bg-info text-center">用车部门</th>
+            <th class="bg-info text-center">乘车人</th>
+            <th class="bg-info text-center">车牌</th>
+            <th class="bg-info text-center">司机</th>
+            <th class="bg-info text-center">单价</th>
+            <th class="bg-info text-center">公里数</th>
+            <th class="bg-info text-center">车费</th>
+            <th class="bg-info text-center">乘车时间</th>
+            <th class="bg-info text-center">乘车说明</th>
+            <th class="bg-info text-center">录入人员</th>
+            <th class="bg-info text-center" colspan="2">允许的操作</th>
+            </thead>
+            <tbody>
+            {% for row in fare_list %}
+            <tr rowid="{{ row.id }}">
+                <td>{{ row.dep.dep_name }}</td>
+                <td>{{ row.passenger}}</td>
+                <td>{{ row.car.plate_number }}</td>
+
+                <td>{{ row.car.driver }}</td>
+                <td class="text-right">{{ row.car.price }}</td>
+                <td class="text-right">{{ row.distance }}</td>
+                <td class="text-right">{{ row.fare }}</td>
+                <td>{{ row.drive_date|date:'Y-m-d'}}</td>
+                <td>{{ row.remark}}</td>
+                <td>{{ row.oprator }}</td>
+
+              <td>
+                       {% if pagpermission.has_edit %}
+                                    <a href="/fare/fareedit/{{ row.id }}/" class="btn btn-info"> <i
+                                            class="fa fa-pencil-square-o"
+                                            aria-hidden="true" style="margin-right: 6px;"></i>编辑</a>
+                      {% endif %}
+                                </td>
+                                <td>
+                             {% if pagpermission.has_del %}
+                                    <button   class="btn btn-danger" data-toggle="modal"
+                                data-target="#delModal" data-rowid="{{ row.id }}"><i
+                                            class="fa fa-trash-o fa-fw"
+                                            aria-hidden="true" style="margin-right: 6px;"></i>删除</button>
+                                     {% endif %}
+
+                                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- 模态框 -->
+<div class="modal fade"  id="delModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!--<div class="modal-header"> -->
+            <div class="alert alert-danger" role="alert">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">删除记录</h4>
+      </div>
+      <div class="modal-body">
+        <p>将要删除这条记录，你确认要删除？</p>
+          <input type="hidden" id="rowid">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary"  onclick="del_ok()">确认删除</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script>
+
+$('#delModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var vrowid = button.data('rowid'); // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this);
+
+  modal.find('#rowid').val(vrowid)
+})
+function del_ok()
+{
+
+    var rowid= $("#rowid").val();
+    //alert(rowid);
+    $.ajax({
+        url:"/fare/faredel/"+rowid+"/",
+        type:"GET",
+        success:function(data){
+            var dic=JSON.parse(data);
+            //alert(dic.status);
+            if(dic.status){
+            window.location.href='/fare/farelist/';
+            $('#myModal').modal('hide');
+                     }
+                 }
+      })
+}
+
+
+</script>
+
+{% endblock %}
+

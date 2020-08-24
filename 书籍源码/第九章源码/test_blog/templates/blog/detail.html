@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block main %}
+<article class="blog">
+    <header class="entry-header">
+        <h1 class="entry-title">{{ blog.title }}</h1>
+        <div class="entry-meta-detail">
+            <span class="blog-category"><a href="#">{{ blog.category.name }}</a></span>
+            <span class="blog-date"><a href="#"><time class="entry-date"
+                                                      datetime="{{ blog.created_time }}">{{ blog.created_time }}</time></a></span>
+            <span class="blog-author"><a href="#">{{ blog.author.nikename }}</a></span>
+            <span class="comments-link"><a href="#">共 <span>{{ comment_list | length }}</span> 条评论</a></span>
+            <span class="views-count"><a href="#">{{ blog.views }} 阅读</a></span>
+        </div>
+    </header>
+    <div class="entry-content clearfix">
+        {{ blog.body| safe }}
+    </div>
+</article>
+{% if request.user.username %}
+<section class="comment-area">
+    <h3>发表评论</h3>
+    <hr>
+    <form action="{% url 'comments:blog_comment' blog.pk %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label class="col-md-2">名字：</label>
+            {{ request.user.nikename }}
+        </div>
+        <div class="form-group">
+            <label class="col-md-2">邮箱：</label>
+            {{ request.user.email }}
+        </div>
+        <div class="form-group">
+            <label for="{{ form.text.id_for_label }}" class="col-md-2">评论：</label>
+            {{ form.text }}
+            {{ form.text.errors.0 }}
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2">
+                <button type="submit" class="btn btn-default">发表</button>
+            </div>
+        </div>
+        {% endif %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h5>评论列表，共 <span>{{comment_list|length}}</span> 条评论</h5>
+            </div>
+            <div class="panel-body">
+                <ul class="comment-list list-unstyled">
+                    {% for comment in comment_list %}
+                    <li>
+                        <span style="color: #777;font-size: 14px;">{{ comment.name }}&nbsp;·&nbsp;</span>
+                        <time style="color: #777;font-size: 14px;">{{ comment.created_time }}</time>
+                        <div style="padding-top: 5px;font-size: 16px;">
+                            {{ comment.text }}
+                        </div>
+                    </li>
+                    {% empty %}
+                    暂无评论
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+</section>
+
+{% endblock main %}
+

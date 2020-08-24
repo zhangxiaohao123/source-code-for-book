@@ -1,0 +1,63 @@
+{% extends 'test_orm/base.html' %}
+{% block page_content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">员工列表</h3> <!--这里加标题 //-->
+    </div>
+    <div class="panel-body"> <!--将表格放在这个<div class="panel-body">的标签中 //-->
+        <div class="row">
+            <div class="col-md-3 pull-right" style="margin-bottom:15px ">
+                <div><a href="/test_orm/add_employee/" class="btn btn-primary pull-right"><i class="fa fa-user-plus fa-fw"
+                                                                                   ></i>&nbsp;增加记录</a><!--给增加记录按钮加bootstrap样式、fontawesome图标 //-->
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-condensed table-striped table-hover"> <!--给表格增加bootstrap样式 //-->
+            <thead>
+            <tr>
+                <th>姓名</th>
+                <th>邮件</th>
+                <th>薪水</th>
+                <th>地址</th>
+                <th>部门</th>
+                <th>团队</th>
+                <th colspan="2">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for emp in emp_list %}
+            <tr>
+                <td>{{ emp.name }}</td>
+                <td>{{ emp.email }}</td>
+                <td>{{ emp.salary }}</td>
+                <td>{{ emp.info.address }}</td>
+                <td>{{ emp.dep.dep_name }}</td>
+                <td>
+                    {% for gp in emp.group.all %}
+                    {% if forloop.last %}
+                    {{ gp.group_name }}
+                    {% else %}
+                    {{ gp.group_name }},
+                    {% endif %}
+                    {% endfor %}
+                </td>
+                <td><a href="/test_orm/del_employee/{{ emp.id }}/" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"
+                                                                                    aria-hidden="true"></i>&nbsp;删除</a></td>
+                <td><a href="/test_orm/edit_employee/{{ emp.id }}/" class="btn btn-info"><i class="fa fa-pencil-square-o"
+                                                                                   aria-hidden="true"></i>&nbsp;修改</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">无相关记录！</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}
+<!-- 以下block块给样式类赋值，class="active"//-->
+{% block employeecls %}
+active
+{% endblock %}

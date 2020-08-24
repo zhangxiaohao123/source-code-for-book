@@ -1,0 +1,38 @@
+{% extends 'test_rbac/base.html' %}
+{% block content %}
+
+<div align="center">
+
+
+<h2>订单查看</h2>
+
+    <p></p>
+        <table border="1" width="300px">
+            <thead>
+
+                <th>允许的操作</th>
+            </thead>
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        {% if pagpermission.has_edit %}
+                         <a href="/order/edit/88/">编辑</a><br>
+                        {% endif %}
+                       {% if pagpermission.has_del %}
+                        <a href="/order/del/88/">删除</a><br>
+                       {% endif %}
+                          {% if pagpermission.has_add %}
+                        <a href="/order/add/">添加</a><br>
+                          {% endif %}
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    <br>
+
+
+    </div>
+{% endblock %}

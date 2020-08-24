@@ -1,0 +1,40 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>登录页面</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="icon" href="{% static 'favicon.ico'　%}" 　>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/font-awesome.min.css'%}">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'signin.css' %}" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="container">
+
+    <form action='/login/' method='post' class="form-signin">
+        {% csrf_token %}
+        <h2 class="form-signin-heading">请登录</h2>
+        <label for="{{ form_obj.account.id_for_label }}" class="sr-only">{{ form_obj.account.label }}</label>
+        {{ form_obj.account }}
+        <br>
+        <label for="{{ form_obj.pwd.id_for_label }}" class="sr-only">{{ form_obj.pwd.label }}</label>
+        {{ form_obj.pwd }}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+
+</div> <!-- /container -->
+
+
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js'%}"></script>
+</body>
+</html>

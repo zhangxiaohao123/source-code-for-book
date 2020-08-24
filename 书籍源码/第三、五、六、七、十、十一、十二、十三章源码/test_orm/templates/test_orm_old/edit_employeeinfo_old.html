@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+    <h1>修改电话地址</h1>
+    <hr>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" id="id" value="{{ info.id }}" >
+        <div>
+            <label>电话：</label>
+            　　<input type="text" name="phone" id="phone" value="{{ info.phone }}">
+        </div>
+        <br>
+        <div>
+            <label>地址：</label>
+            　　<input type="text" name="address" id="address" value="{{ info.address }}">
+        </div>
+        <br>
+
+        <div><input type="submit" value="保存"></div>
+
+
+    </form>
+    {{ error_info }}
+</div>
+</body>
+</html>

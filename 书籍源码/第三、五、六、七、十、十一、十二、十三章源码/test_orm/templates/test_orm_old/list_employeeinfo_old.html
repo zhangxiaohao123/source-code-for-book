@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+    <h1>人员地址电话列表</h1>
+    <hr>
+    <div><a href="/test_orm_old/add_employeeinfo_old/">增加一条记录</a></div>
+    <table border="1">
+        <thead>
+        <tr>
+            <td>电话</td>
+            <td>地址</td>
+            <td colspan="2">操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for info in info_list %}
+        <tr>
+            <td>{{ info.phone }}</td>
+            <td>{{ info.address }}</td>
+            <td><a href="/test_orm_old/del_employeeinfo_old/{{ info.id }}/">删除</a></td>
+            <td><a href="/test_orm_old/edit_employeeinfo_old/{{ info.id }}/">修改</a></td>
+        </tr>
+        {% empty %}
+           <tr>
+            <td colspan="4">无相关记录！</td>
+
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

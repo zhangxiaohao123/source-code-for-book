@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试Django Form</title>
+</head>
+<body>
+<div align="center">
+    <h1>测试Django Form</h1>
+    <hr>
+    <form action="/test_form/" method="post">
+        {% csrf_token %}
+        {{ testform.as_p }}
+        <div><input type="submit" value="登录"></div>
+    </form>
+</div>
+</body>
+</html>

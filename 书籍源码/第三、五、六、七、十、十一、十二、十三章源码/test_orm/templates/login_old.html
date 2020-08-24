@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+<body>
+<div align="center">
+    <h2>登录页面</h2>
+    <hr>
+    <form action='/login/' method='post'>
+        {% csrf_token %}
+        {{ form_obj.as_p}}
+        <div style="color:red;">
+            {{ errmsg }}
+        </div>
+        <input type=submit value="登录">
+    </form>
+</div>
+</body>
+</html>

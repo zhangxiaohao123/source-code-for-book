@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center">
+    <h1>修改员工信息</h1>
+    <hr>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name='id' id='id' value={{ emp.id }}>
+        <div>
+            <label>姓名：</label>
+            　　<input type="text" name="name" id="name" value={{ emp.name }}>
+        </div>
+        <br>
+        <div>
+            <label>邮箱：</label>
+            　　<input type="text" name="email" id="email" value={{ emp.email }}>
+        </div>
+        <br>
+        <div>
+            <label>电话地址：</label>
+            <select name="info" id="info">
+                {% for info in info_list %}
+                  {% if emp.info_id == info.id %}
+                <option value="{{ info.id}}"  selected > {{ info.phone }}||{{ info.address }}</option>
+                {% else %}
+                <option value="{{ info.id}}"> {{ info.phone }}||{{ info.address }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            　
+        </div>
+        <br>
+        <div>
+            <label>部门：</label>
+            <select name="dep" id="dep">
+                {% for dep in dep_list %}
+                {% if emp.dep_id == dep.id %}
+                <option value="{{ dep.id}}"  selected > {{ dep.dep_name }}</option>
+                {% else %}
+                <option value="{{ dep.id}}"  > {{ dep.dep_name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            　
+        </div>
+        <br>
+        <div>
+            <label>团体：</label>
+            <select name="group" id="group"   multiple="true" >
+                  {% for group  in group_list %}
+                {% if group in emp.group.all %}
+                <option value="{{ group.id}}" selected> {{ group.group_name }} </option>
+                {% else %}
+                  <option value="{{ group.id}}"> {{ group.group_name }}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            　
+        </div>
+        <br>
+        <div><input type="submit" value="保存"></div>
+
+
+    </form>
+</div>
+</body>
+</html>

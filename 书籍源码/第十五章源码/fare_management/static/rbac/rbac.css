@@ -1,0 +1,18 @@
+
+.top_menu{
+    font-size:12pt;
+    padding: 1px 6px;
+}
+.sub_menu{
+    font-size:10pt;
+    padding: 3px 12px 3px 50px;
+}
+
+.sub_menu a{
+    display: block;
+}
+
+
+.nodisplay{
+    display: none;
+}

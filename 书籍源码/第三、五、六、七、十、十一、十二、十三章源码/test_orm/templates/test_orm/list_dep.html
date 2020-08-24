@@ -1,0 +1,48 @@
+{% extends 'test_orm/base.html' %}
+{% block page_content %}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">部门列表</h3> <!--这里加标题 //-->
+    </div>
+    <div class="panel-body"> <!--将表格放在这个<div class="panel-body">的标签中 //-->
+        <div class="row">
+            <div class="col-md-3 pull-right" style="margin-bottom:15px ">
+                <div><a href="/test_orm/add_dep/" class="btn btn-primary pull-right"><i class="fa fa-user-plus fa-fw"
+                                                                                    aria-hidden="true"></i>&nbsp;增加记录</a><!--给增加记录按钮加bootstrap样式、fontawesome图标 //-->
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-condensed table-striped table-hover"> <!--给表格增加bootstrap样式 //-->
+            <thead>
+            <tr>
+                <th>部门名称</th>
+                <th>备注说明</th>
+                <th colspan="2">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+           {% for dep in dep_list %} <!--#dep_list即为视图函数list_dep中render传入参数//-->
+            <tr>
+                 <td>{{ dep.dep_name }}</td>
+            <td>{{ dep.dep_script }}</td>
+
+                <td><a href="/test_orm/del_dep/{{ dep.id }}/" class="btn btn-danger"><i class="fa fa-trash-o fa-fw"
+                                                                                    aria-hidden="true"></i>&nbsp;删除</a></td>
+                <td><a href="/test_orm/edit_dep/{{ dep.id }}" class="btn btn-info"><i class="fa fa-pencil-square-o"
+                                                                                   aria-hidden="true"></i>&nbsp;修改</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">无相关记录！</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}
+<!-- 以下block块给样式类赋值，class="active"//-->
+{% block depcls %}
+active
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'test_rbac/base.html' %}
+{% block content %}
+
+<div align="center">
+
+
+<h2>用户查看</h2>
+
+    <p></p>
+        <table border="1" width="600px">
+            <thead>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>职业</th>
+                <th>允许的操作</th>
+            </thead>
+            <tbody>
+            {% for row in data_list %}
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.name }}</td>
+                     <td>{{ row.work }}</td>
+                    <td>
+                        {% if pagpermission.has_edit %}
+                         <a href="/userinfo/edit/12/">编辑</a>
+                        {% endif %}
+                       {% if pagpermission.has_del %}
+                        <a href="/userinfo/del/12/">删除</a>
+                       {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    <br>
+
+      {% if pagpermission.has_add %}
+     <a href="/userinfo/add/">添加用户</a>
+    {% endif %}
+    </div>
+{% endblock %}
+

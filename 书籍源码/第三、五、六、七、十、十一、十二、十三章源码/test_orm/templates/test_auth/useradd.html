@@ -1,0 +1,16 @@
+{% extends "test_auth/base.html" %}
+{% block content %}
+<div align="center">
+    <br>
+    <br>
+    <h2>增加用户</h2>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>编号：<input type="text" name="bianhao"></p>
+        <p>姓名：<input type="text" name="name"></p>
+        <input type="submit" value="提交">
+    </form>
+</div>
+{% endblock %}
+

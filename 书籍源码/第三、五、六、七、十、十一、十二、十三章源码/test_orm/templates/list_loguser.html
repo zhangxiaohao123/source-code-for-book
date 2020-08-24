@@ -1,0 +1,104 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Django Form样例</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="icon" href="{% static 'favicon.ico'　%}" 　>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/font-awesome.min.css'%}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-2 col-md-8">
+<div class="page-header">
+  <h1> 样例首页<small>--账号信息列表</small></h1>
+</div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">账号信息</h3> <!--这里加标题 //-->
+                </div>
+                <div class="panel-body"> <!--将表格放在这个<div class="panel-body">的标签中 //-->
+                    <div class="row">
+                        <div class="col-md-3 pull-right" style="margin-bottom:15px ">
+                            <div><a href="/add_loguser/" class="btn btn-primary pull-right"><i
+                                    class="fa fa-user-plus fa-fw"
+                            ></i>&nbsp;增加</a><!--给增加记录按钮加bootstrap样式、fontawesome图标 //-->
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered table-condensed table-striped table-hover">
+                        <!--给表格增加bootstrap样式 //-->
+                        <thead>
+                        <tr>
+                            <th>账号</th>
+                            <th>邮件</th>
+                            <th>性别</th>
+                            <th>爱好</th>
+                            <th>头发数量</th>
+                            <th colspan="2">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for usr in usr_list %}
+
+                        <tr>
+                            <td>{{ usr.account }}</td>
+                            <td>{{ usr.email }}</td>
+                            <td>
+                                {% if usr.gander == '1' %}
+                                男
+                                {% else %}
+                                女
+                                {% endif %}
+                            </td>
+                            <td>
+                                 {% if usr.hobby == '1' %}
+                                游泳
+                                {% elif usr.hobby == '2' %}
+                                自行车
+                                {% else %}
+                                跑酷
+                                {% endif %}
+                            </td>
+                            <td>
+                                 {% if usr.hair == '1' %}
+                                很多
+                                {% elif usr.hair == '2' %}
+                                一般
+                                {% else %}
+                                很少
+                                {% endif %}</td>
+
+                            <td><a href="/del_loguser/{{ usr.id }}/" class="btn btn-danger"><i
+                                    class="fa fa-trash-o fa-fw"
+                                    aria-hidden="true"></i>&nbsp;删除</a>
+                            </td>
+                            <td><a href="/edit_loguser/{{ usr.id }}/" class="btn btn-info"><i
+                                    class="fa fa-pencil-square-o"
+                                    aria-hidden="true"></i>&nbsp;修改</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="7">无相关记录！</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js'%}"></script>
+</body>
+</html>

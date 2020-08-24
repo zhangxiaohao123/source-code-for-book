@@ -1,0 +1,45 @@
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>模板样例</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="icon" href="{% static 'favicon.ico'　%}" 　>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'dashboard.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/font-awesome.min.css'%}">
+</head>
+
+<body>
+{% include 'header.html' %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="{% block employeecls %}{% endblock %}"><a href="/test_orm/list_employee/">人员信息修改</a></li>
+                <li class="{% block depcls %}{% endblock %}"><a href="/test_orm/list_dep/">部门列表</a></li>
+                <li class="{% block groupcls %}{% endblock %}"><a href="/test_orm/list_group/">团队列表</a></li>
+                <li class="{% block employeeinfocls %}{% endblock %}"><a href="/test_orm/list_employeeinfo/">人员补充信息</a></li>
+            </ul>
+
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <br> <br>
+            {# 这个block块写继承页面个性的内容，即不同于母板的内容 #}
+            {% block page_content %}
+            {% endblock %}
+
+        </div>
+    </div>
+</div>
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js'%}"></script>
+</body>
+</html>

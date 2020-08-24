@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>部门列表</h2>
+{% for dep in dep_list %}
+{{ dep.dep_name }}---{{dep.dep_script }}
+<br>
+{% endfor %}
+</body>
+</html>

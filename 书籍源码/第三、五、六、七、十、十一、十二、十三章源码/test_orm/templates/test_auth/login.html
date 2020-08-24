@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>登录</title>
+</head>
+<body>
+<div align="center">
+    <br>
+    <h2>用户登录</h2>
+<form method="post" action="/test_auth/user_login/">
+    {% csrf_token %}
+    <p>姓名：<input type="text" name="username"></p>
+    <p>密码：<input type="password" name="password"></p>
+    <p><input type="submit" value="提交"></p>
+</form>
+    </div>
+</body>
+</html>
+

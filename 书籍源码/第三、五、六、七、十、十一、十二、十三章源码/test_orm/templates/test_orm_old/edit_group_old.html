@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改团队</title>
+</head>
+<body>
+<div align="center">
+    <h1>修改团队</h1>
+    <hr>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" id="id" value="{{ group.id }}" >
+        <div>
+            <label>团队：</label>
+            　　<input type="text" name="group_name" id="group_name" value="{{ group.group_name }}">
+        </div>
+        <br>
+        <div>
+            <label>备注：</label>
+            　　<input type="text" name="group_script" id="group_script" value="{{ group.group_script }}">
+        </div>
+        <br>
+
+        <div><input type="submit" value="保存"></div>
+
+
+    </form>
+    {{ error_info }}
+</div>
+</body>
+</html>
+

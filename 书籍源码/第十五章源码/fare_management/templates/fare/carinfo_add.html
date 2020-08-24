@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    <div class="col-md-offset-1 col-md-9">
+    <div class="panel panel-primary">
+  <div class="panel-heading">车辆信息增加</div>
+  <div class="panel-body">
+   <form class="form-horizontal" method="post" action="">
+       {%  csrf_token %}
+  <div class="form-group">
+    <label for="plate_number" class="col-md-2 control-label">车号</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" id="plate_number" name="plate_number" placeholder="车号">
+    </div>
+  </div>
+       <div class="form-group">
+    <label for="driver" class="col-md-2 control-label">司机</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" id="driver" name="driver"  placeholder="司机">
+    </div>
+  </div>
+         <div class="form-group">
+    <label for="price" class="col-md-2 control-label">单价</label>
+    <div class="col-md-8">
+      <input type="number" class="form-control" id="price" name="price"  placeholder="单价(每公里)">
+    </div>
+  </div>
+     <div class="form-group">
+    <label for="remarks" class="col-md-2 control-label">备注说明</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" id="remarks" name="remarks"  placeholder="备注说明">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-8">
+      <button type="submit" class="btn btn-primary">增加</button>
+    </div>
+  </div>
+</form>
+  </div>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block page_content %}
+<div class="col-md-offset-1 col-md-9">
+    <div class="panel panel-primary">
+        <div class="panel-heading">登录用户分配到部门</div>
+        <div class="panel-body">
+            <form class="form-horizontal" method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name='id' value="{{ obj.id }}">
+                <div class="form-group">
+                    <label for="username" class="col-md-2 control-label">账户</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="username" name="username"
+                               value="{{ obj.username }}" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nickname" class="col-md-2 control-label">姓名</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="nickname" name="nickname"
+                               value="{{ obj.nickname }}" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-md-2 control-label">邮箱</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="email" name="email"
+                               value="{{ obj.email }}" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <label for="dep_id" class="col-md-2 control-label">部门名称</label>
+                    <div class="col-md-8">
+                        <select class="form-control" id="dep_id" name="dep_id">
+                            {% for dep in deplist %}
+                            {% if obj.loguser.dep_id == dep.id %}
+                            <option value={{ dep.id }} selected>{{ dep.dep_name }}</option>
+                            {% else %}
+                            <option value={{ dep.id }}>{{ dep.dep_name }}</option>
+                            {% endif %}
+                             {% endfor %}
+
+                        </select>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

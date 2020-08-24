@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改</title>
+</head>
+<body>
+<div align="center">
+    <h1>修改一个人物</h1>
+    <hr>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" value="{{  person.id }}" name="id">
+        <div>
+            <label>姓名：</label>
+            　　<input type="text" name="name" id="name" value="{{ person.name }}">
+        </div>
+        <br>
+        <div>
+            <label>邮箱：</label>
+            　　<input type="text" name="email" id="email" value="{{ person.email }}">
+        </div>
+        <br>
+        <div>
+            <label>性别：</label>
+            <select name="gander">
+                <option value="1" {% if person.gander == "1" %} selected {% endif %}>男</option>
+                <option value="2" {% if person.gander == "2" %} selected {% endif %}>女</option>
+            </select> 　
+        </div>
+        <br>
+        <div>
+            <label for="head_img">头像：<img id='imgforshow' src="/media/{{ person.head_img }}"
+                                          style="height:60px;width:60px;"></label>
+            　　<input type="file" name="head_img" id="head_img" style="display:none;" >
+        </div>
+        <br>
+        <div>
+            <label>附件：</label>
+            　　<input type="file" name="attachment" id="attachment" >
+            <br>
+
+        </div>
+        <br>
+
+        <div><input type="submit" value="保存"></div>
+
+
+    </form>
+</div>
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script>
+    $("#head_img").change(function () {
+        var rd_img = new FileReader(); // 1. 创建一个读取头像文件的对象
+        rd_img.readAsDataURL(this.files[0]);  //读取你选中的那个文件
+        rd_img.onload = function () {
+            // 2. 读取文件是要耗费一定的时间,用onload确定文件读取完成，才能把图片加载到img标签中
+            $("#imgforshow").attr("src", rd_img.result);
+        };
+    });
+
+</script>
+</body>
+</html>

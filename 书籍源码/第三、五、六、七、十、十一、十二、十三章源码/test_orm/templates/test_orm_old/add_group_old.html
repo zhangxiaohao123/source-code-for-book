@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>增加团队</title>
+</head>
+<body>
+<div align="center">
+    <h1>增加团队</h1>
+    <hr>
+    <form action="/test_orm_old/add_group_old/" method="post">
+        {% csrf_token %}
+        <div>
+            <label>团队：</label>
+            　　<input type="text" name="group_name" id="group_name">
+        </div>
+        <br>
+        <div>
+            <label>备注：</label>
+            　　<input type="text" name="group_script" id="group_script">
+        </div>
+        <br>
+
+        <div><input type="submit" value="增加"></div>
+
+
+    </form>
+   <div style="color:red;">{{ error_info }}</div>
+</div>
+</body>
+</html>

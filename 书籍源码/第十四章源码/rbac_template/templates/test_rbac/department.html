@@ -1,0 +1,39 @@
+{% extends 'test_rbac/base.html' %}
+{% block content %}
+
+<div align="center">
+
+
+<h2>部门查看</h2>
+
+    <p></p>
+        <table border="1" width="300px">
+            <thead>
+
+                <th>允许的操作</th>
+            </thead>
+            <tbody>
+
+                <tr>
+
+                    <td>
+                        {% if pagpermission.has_edit %}
+                         <a href="/department/edit/66/">编辑</a><br>
+                        {% endif %}
+                       {% if pagpermission.has_del %}
+                        <a href="/department/del/66/">删除</a><br>
+
+                       {% endif %}
+                          {% if pagpermission.has_add %}
+                        <a href="/department/add/">添加</a><br>
+                          {% endif %}
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    <br>
+
+
+    </div>
+{% endblock %}

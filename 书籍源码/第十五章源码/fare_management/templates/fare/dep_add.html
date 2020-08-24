@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    <div class="col-md-offset-1 col-md-9">
+    <div class="panel panel-primary">
+  <div class="panel-heading">部门信息增加</div>
+  <div class="panel-body">
+   <form class="form-horizontal" method="post" action="">
+       {%  csrf_token %}
+       <input type="hidden" name='id' value="{{ obj.id }}">
+  <div class="form-group">
+    <label for="dep_name" class="col-md-2 control-label">部门名称</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" id="dep_name" name="dep_name" >
+    </div>
+  </div>
+       <div class="form-group">
+    <label for="dep_script"    driver" class="col-md-2 control-label">备注说明</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" id="dep_script" name="dep_script"  >
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-8">
+      <button type="submit" class="btn btn-primary">保存</button>
+    </div>
+  </div>
+</form>
+  </div>
+</div>
+</div>
+{% endblock %}

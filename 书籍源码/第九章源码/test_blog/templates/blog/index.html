@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block main %}
+{% if error_msg %}
+<p>{{ error_msg }}</p>
+{% endif %}
+{% for blog in blog_list %}
+<div class="media">
+    <div class="media-left">
+        <a href="{% url 'blog:authorindex' blog.author.id %}">
+            <img class="media-object" src="/media/{{ blog.author.head_img }}" style="width:100px;height:100px;"
+                 alt="点击头像显示此作者的博客文章列表">
+        </a>
+    </div>
+    <div class="media-body">
+        <h3 class="media-heading"><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></h3>
+        <p>{{ blog.excerpt|safe }}...</p>
+        <div class="entry-meta">
+            <span class="blog-category"><a href="#">{{ blog.category.name }}</a></span>
+            <span class="blog-date"><a href="#"><time class="entry-date"
+                                                      datetime="{{ blog.created_time }}">{{ blog.created_time }}</time></a></span>
+            <span class="blog-author"><a href="#">{{ blog.author.nikename }}</a></span>
+            <span class="comments-link"><a href="#">{{ blog.comment_set.count }} 评论</a></span>
+            <span class="views-count"><a href="#">{{ blog.views }} 阅读</a></span>
+        </div>
+    </div>
+    {% empty %}
+    <div class="no-post">暂时还没有发布的文章！</div>
+    {% endfor %}
+
+    <!-- 简单分页效果
+    <div class="pagination-simple">
+        <a href="#">上一页</a>
+        <span class="current">第 6 页 / 共 11 页</span>
+        <a href="#">下一页</a>
+    </div>
+    -->
+    {% if is_paginated %}
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {% if left %}
+            <li>
+                <a href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="disabled">
+                <a href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            {% for i in left %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endfor %}
+            <li class="active"><a href="?page={{ page_obj.number }}">{{ page_obj.number }} <span class="sr-only">(current)</span></a>
+            </li>
+
+
+            {% for i in right %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+            {% endfor %}
+            {% if right %}
+            <li>
+                <a href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% else %}
+            <li class="disabled">
+                <a href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+    {% endblock main %}

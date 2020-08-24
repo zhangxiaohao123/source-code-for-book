@@ -1,0 +1,26 @@
+<div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar top_menu">
+        {% for k,item in menu_result.items %}
+            <li class="top_menu"><a href="#">{{ item.menu_title }}</a></li>
+                {% if item.active %}
+                <ul class="nav nav-sidebar ">
+                {% else %}
+                <ul class="nav nav-sidebar nodisplay">
+                {% endif %}
+                        {% for v in item.children %}
+                        {% if v.active %}
+                        <li  class="active sub_menu"><a href="{{ v.url }}">{{ v.title }}</a></li>
+                        {% else %}
+                        <li class="sub_menu"><a href="{{ v.url }}">{{ v.title }}</a></li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+
+           {% endfor %}
+
+        </ul>
+</div>
+
+
+
+

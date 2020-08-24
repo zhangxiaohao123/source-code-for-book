@@ -1,0 +1,70 @@
+/*链接样式*/
+a:hover, a:focus {
+    text-decoration: none;
+    color: #000;
+}
+
+/*文章标题*/
+.entry-title {
+    text-align: center;
+    font-size: 1.9em;
+    margin-bottom: 10px;
+    line-height: 1.6;
+    padding: 10px 20px 0;
+}
+/*文章内容*/
+.blog {
+    background: #fff;
+    padding: 30px 30px 0;
+}
+/*文章属性字段*/
+.entry-meta {
+    text-align:left;
+    color: #DDDDDD;
+    font-size: 13px;
+    margin-bottom: 30px;
+  }
+
+/*文章分类属性字段*/
+.entry-meta-detail {
+    text-align:center;
+    color: #DDDDDD;
+    font-size: 13px;
+    margin-bottom: 30px;
+  }
+
+
+.blog-category::after,
+.blog-date::after,
+.blog-author::after,
+.comments-link::after {
+    content: ' ·';
+    color: #000;
+}
+/*文章内容*/
+.entry-content {
+    font-size: 16px;
+    line-height: 1.9;
+    font-weight: 300;
+    color: #000;
+}
+/*评论格式*/
+.comment-area {
+    padding: 0 10px 0;
+}
+/*标签Tag的样式*/
+
+.tag-list ul {
+    padding: 0;
+    margin: 0;
+    margin-right: -10px;
+}
+.tag-list ul li {
+    list-style-type: none;
+    font-size: 13px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 3px 8px;
+    border: 1px solid #ddd;
+}

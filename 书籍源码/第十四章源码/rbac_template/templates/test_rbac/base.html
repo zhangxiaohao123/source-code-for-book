@@ -1,0 +1,36 @@
+{% load static %}
+{% load custom_tag %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>首页</title>
+     <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'rbac/rbac.css' %}">
+
+     <script src="{% static 'jquery-3.3.1.js' %}"></script>
+     <script src="{% static 'rbac/rbac.js' %}"></script>
+
+    </script>
+</head>
+<body>
+<div >
+    <div style="float: left;width: 20%;height: 900px;background-color: darkgrey">
+    <h4 >&nbsp;&nbsp;菜单栏</h4>
+    <br>
+
+        {% rbac_menu request %}
+        <a type='button' href='/logout/' class='btn btn-primary'>退出</a>
+    </div>
+    <div style="float: left;width: 80%">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+</div>
+
+
+</body>
+</html>

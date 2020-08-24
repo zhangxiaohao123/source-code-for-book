@@ -1,0 +1,101 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>模板样例</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+</head>
+<body>
+<div class="col-sm-4 col-sm-offset-4 col-md-6 col-md-offset-3 main">
+    <br>
+    <br>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">员工列表</h3> <!--这里加标题 //-->
+        </div>
+        <div class="panel-body"> <!--将表格放在这个<div class="panel-body">的标签中 //-->
+
+            <table class="table table-bordered table-condensed table-striped table-hover"> <!--给表格增加bootstrap样式 //-->
+                <thead>
+                <tr>
+                     <th>ID</th>
+                    <th>姓名</th>
+                    <th>邮件</th>
+                    <th>薪水</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for per in person_list %}
+                <tr>
+                    <td>{{ per.id }}</td>
+                    <td>{{ per.name }}</td>
+                    <td>{{ per.email }}</td>
+                    <td>{{ per.salary }}</td>
+                      <td><a  class="btn btn-danger delete"><i
+                                    class="fa fa-trash-o fa-fw"
+                                    aria-hidden="true"></i>&nbsp;删除</a>
+                            </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7">无相关记录！</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+
+        </div>
+    </div>
+</div>
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'sweetalert/sweetalert.min.css' %}">
+
+ <script src="{% static 'sweetalert/sweetalert.min.js' %}"></script>
+<!--<link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script> //-->
+<script>
+    // 找到删除按钮绑定事件
+    $(".delete").on("click", function () {
+
+         var $row = $(this).parent().parent();
+         //alert($row)
+        var Id = $row.children().eq(0).text();
+        swal({
+          title: "是否真的要删除该记录？",
+          text: "正在删除id号为"+Id +"的记录",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          confirmButtonClass: "btn btn-danger",
+          confirmButtonText: "确认",
+          cancelButtonText: "取消",
+          closeOnConfirm: false,
+          showLoaderOnConfirm: true
+        },
+         function(){
+            // 向后端发送删除的请求
+            $.ajax({
+                url: "/test_ajax/del_row/",
+                type: "get",
+                data: {"id":Id},
+                success:function (arg) {
+                    swal(arg, "删除成功！", "success");
+                    $row.remove();
+                }
+            });
+
+        });
+
+    })
+</script>
+</body>
+</html>

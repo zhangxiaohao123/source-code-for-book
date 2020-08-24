@@ -1,0 +1,165 @@
+{% load staticfiles %}
+{% load custom_tags %}
+
+<html>
+<head>
+    <title>blog样例 </title>
+    <!-- meta -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- css -->
+    <link href="{% static 'blog/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'blog/css/blogstyle.css' %}">
+    <!-- js -->
+    <script src="{% static 'blog/js/jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
+   <style>
+        span.highlighted {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{% url 'blog:index' %}" style="color:red;font-weight:700;">&nbsp;&nbsp;&nbsp;&nbsp;Blog系统简例&nbsp;&nbsp;&nbsp;&nbsp; </a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse navbar-left" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li {% if tabname == "firsttab" %} class='active' {% endif %}>
+                <a href="{% url 'blog:index' %}" style="color:red;">首页</a></li>
+                {% if request.user.username %}
+                <li {% if tabname == "mytab" %} class='active' {% endif %}>
+                <a href="{% url 'blog:myindex' request.user.id %}" data-hover="我的">我的</a></li>
+                {% endif %}
+                <form class="navbar-form navbar-left" method="get" action="{% url 'haystack_search' %}">
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="q" placeholder="搜索" required>
+                    </div>
+                    <button type="submit" class="btn btn-default">搜索</button>
+                </form>
+        </div><!-- /.navbar-collapse -->
+        <ul class="nav navbar-nav navbar-right">
+            {% if request.user.username %}
+            <li><a href="#">{{ request.user.nikename }}</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                   aria-expanded="false"> 个人中心<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'blog:myindex' request.user.id %}">我的文章</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url 'blog:logout' %}">注销</a></li>
+                </ul>
+            </li>
+            {% else %}
+            <li><a href="{% url 'blog:login' %}">登录</a></li>
+            <li><a href="{% url 'blog:registe' %}">注册</a></li>
+            {% endif %}
+        </ul>
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="content-body" style="both:clear;margin-top:60px;">
+    <div class="container">
+        <div class="row">
+            <main class="col-md-8">
+                {% block main %}
+                {% endblock main %}
+            </main>
+            <aside class="col-md-4">
+                {% block toc %}
+                <div class="panel panel-primary">
+                    <div class="panel-heading">最新文章</div>
+                    <div class="panel-body">
+                        {% get_new_blogs as new_blog_list %}
+                        <ul>
+                            {% for blog in new_blog_list %}
+                            <li>
+                                <a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a>
+                            </li>
+                            {% empty %}
+                            暂无文章！
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel panel-success">
+                    <div class="panel-heading">分类</div>
+                    <div class="panel-body">
+                        {% get_categories as category_list %}
+                        <ul>
+                            {% for category in category_list %}
+                            <li>
+                                <a href="{% url 'blog:category' category.pk %}">{{ category.name }} <span
+                                        class="post-count">({{ category.num_blogs}})</span></a>
+                            </li>
+                            {% empty %}
+                            暂无分类！
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="panel panel-info">
+                    <div class="panel-heading">标签</div>
+                    <div class="panel-body">
+                        <div class="tag-list">
+                            {% get_tags as tag_list %}
+                            <ul >
+                                {% for tag in tag_list %}
+                                <li><a href="{% url 'blog:tag' tag.pk %}">{{ tag.name }}({{ tag.num_blogs }})</a>
+                                </li>
+                                {% empty %}
+                                暂无标签！
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">归档</div>
+                    <div class="panel-body">
+                        {% archives as date_list %}
+                        <ul>
+                            {% for date in date_list %}
+                            <li>
+                                <a href="{% url 'blog:archives' date.year date.month %}">
+                                    {{ date.year }} 年 {{ date.month }}月</a>
+                            </li>
+                            {% empty %}
+                            暂无归档！
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+                {% endblock toc %}
+            </aside>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div align="center">
+                <h5>&copy 2017 - good good study day day up - 坚持每天进步一点</h5>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

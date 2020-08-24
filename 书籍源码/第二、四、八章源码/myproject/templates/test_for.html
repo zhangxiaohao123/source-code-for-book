@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<hr>
+{% for name in vlist %}
+    {%　if forloop.first %}
+        第一条记录：{{ name}}
+        <hr>
+    {% endif %}
+
+    从１开始计数：{{ forloop.counter }}--{{ name}}
+    <br>
+    从０开始计数:{{ forloop.counter0 }}--{{ name}}
+    <br>
+     反向计数：{{forloop.revcounter }}--{{ name}}
+    <hr>
+    {%　if forloop.last %}
+        最后一条记录：{{ name}}
+        <hr>
+     {% endif %}
+    {% empty %}
+      没有人员
+    {% endfor %}
+{%　with vlist.0  as firstname %}
+第一个人员是：{{ firstname }}
+{% endwith %}
+{#　这是注释　#}
+这是注释
+</body>
+</html>

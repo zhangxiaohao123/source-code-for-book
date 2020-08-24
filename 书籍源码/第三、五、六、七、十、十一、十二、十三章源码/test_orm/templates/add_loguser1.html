@@ -1,0 +1,107 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Django ModelForm样例</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="icon" href="{% static 'favicon.ico'　%}" 　>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/font-awesome.min.css'%}">
+</head>
+
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-offset-3 col-md-6">
+            <div class="page-header">
+                <h1>Django ModelForm 测试
+                    <small>--账户增加</small>
+                </h1>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">账号增加</h3> <!--这里加标题 //-->
+                </div>
+                <div class="panel-body"> <!--将表格放在这个<div class="panel-body">的标签中 //-->
+                    <form action="/add_loguserm/" method="post" enctype="multipart/form-data" class="form-horizontal">
+                        {% csrf_token %}
+                        {{ formobj.id }}
+                        <div class="form-group">
+                            <label for="{{ formobj.account.id_for_label }}" class="col-md-2 control-label">
+                                {{ formobj.account.label }}</label>
+                            <div class="col-md-8">
+                                {{ formobj.account }}
+                                <span class="help-block">{{ formobj.account.errors.0 }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ formobj.password.id_for_label }}" class="col-md-2 control-label">
+                                {{ formobj.password.label }}</label>
+                            <div class="col-md-8">
+                                {{ formobj.password }}
+                                <span class="help-block">{{ formobj.password.errors.0 }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ formobj.email.id_for_label }}" class="col-md-2 control-label">
+                                {{ formobj.email.label }}</label>
+                            <div class="col-md-8">
+                                {{ formobj.email }}
+                                <span class="help-block">{{ formobj.email.errors.0 }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ formobj.gander.id_for_label }}" class="col-md-2 control-label">
+                                {{ formobj.gander.label }}</label>
+                            <div class="col-md-8">
+                                {{ formobj.gander }}
+                                <span class="help-block">{{ formobj.gander.errors.0 }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ formobj.hobby.id_for_label }}" class="col-md-2 control-label">
+                                {{ formobj.hobby.label }}</label>
+                            <div class="col-md-8">
+                                {{ formobj.hobby }}
+                                <span class="help-block">{{ formobj.hobby.errors.0 }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ formobj.hair.id_for_label }}" class="col-md-2 control-label">
+                                {{ formobj.hair.label }}</label>
+                            <div class="col-md-8">
+                                {{ formobj.hair }}
+                                <span class="help-block">{{ formobj.hair.errors.0 }}</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ formobj.img.id_for_label }}" class="col-md-2 control-label">
+                                {{ formobj.img.label }}</label>
+                            <div class="col-md-8">
+                                {{ formobj.img }}
+                                <span class="help-block">{{ formobj.img.errors.0 }}</span>
+                            </div>
+                        </div>
+                        <div align="center">
+                            <input type="submit" class="btn btn-primary" value="增加">
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'jquery-3.4.1.min.js' %}"></script>
+<script src="{% static 'bootstrap/js/bootstrap.min.js'%}"></script>
+</body>
+</html>
+
+
+

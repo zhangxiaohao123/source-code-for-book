@@ -1,0 +1,187 @@
+{% extends 'base.html' %}
+{% block page_content %}
+<div class="col-md-offset-1 col-md-9">
+    <div class="panel panel-primary">
+        <div class="panel-heading">车费上报</div>
+
+        <div class="panel-body">
+            <form class="form-horizontal" method="post" action="">
+                {% csrf_token %}
+                <input type="hidden" name='id' value="{{ obj.id }}">
+                <input type="hidden" name='dep_id' id='dep_id' value="{{ dep_obj.id }}">
+                <input type="hidden" name='car_id' id='car_id' value=" 111">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">部门名称</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" value="{{ dep_obj.dep_name }}" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="dep_id" class="col-md-2 control-label">车牌号码</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="plate_number"  name="plate_number"  readonly>
+                    </div>
+                    <div class="col-md-1">
+                        <!-- 按钮触发模态框 -->
+                        <button type='button' class="btn  btn-default btn-md " data-toggle="modal"
+                                data-target="#myModal">
+                            <i class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="driver" class="col-md-2 control-label">司机</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="driver" name="driver"  readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="price" class="col-md-2 control-label">单价</label>
+                    <div class="col-md-8">
+                        <input type="number" class="form-control" id="price" name="price"  readonly>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="distance" class="col-md-2 control-label">公里数</label>
+                    <div class="col-md-8">
+                        <input type="number" class="form-control" id="distance" name="distance"  onblur="getfare()" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fare" class="col-md-2 control-label">车费</label>
+                    <div class="col-md-8">
+                        <input type="number" class="form-control" id="fare" name="fare" readonly>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label for="remark" class="col-md-2 control-label">乘车人员</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="passenger" name="passenger">
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label for="remark" class="col-md-2 control-label">乘车说明</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="remark" name="remark">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="drive_date" class="col-md-2 control-label">乘车时间</label>
+                    <div class="col-md-8">
+                        <input type="date" class="form-control" id="drive_date" name="drive_date" value={{ tday }} readonly>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="oprator" class="col-md-2 control-label">录入人员</label>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="oprator" name="oprator" value="{{ nickname }}" disabled>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-8">
+                        <button type="submit" class="btn btn-primary">上报</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--模态框 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">请选择乘座的车辆</h4>
+            </div>
+            <div class="modal-body">
+   <table class="table table-striped table-hover table-bordered" >
+                    <thead>
+                    <th class="bg-info text-center" >选择</th>
+                    <th class="bg-info text-center" >车号</th>
+                    <th class="bg-info text-center" >司机</th>
+                    <th class="bg-info text-center" >单价(每公里)</th>
+                    <th class="bg-info text-center" >备注说明</th>
+                    </thead>
+                    <tbody >
+                    {% for car in carlist %}
+                         <tr onclick="tr_click(this)">
+                            <td><input  class="radiott" type="radio" id={{ car.id }} name="radio1"></td>
+                            <td>{{ car.plate_number }}</td>
+                            <td>{{ car.driver }}</td>
+                            <td>{{ car.price }}</td>
+                            <td>{{ car.remarks }}</td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+               </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="select_ok" onclick="select_ok()">确定</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+<script>
+
+function tr_click(e)
+{
+     $(e).addClass('info')      //为选中项添加背景色样式
+                .siblings().removeClass('info')//去除其他项的为选中项添加背景色样式
+                .end();
+      $('.radiott').removeAttr('checked')
+      $(e).find('.radiott').attr('checked',true);
+
+}
+function getfare()
+{
+
+    if( ($("#price").val()!='') & ($("#distance").val()!=''))
+        {
+
+            vprice=parseFloat($("#price").val());
+
+            vdistance=parseFloat($("#distance").val());
+
+            vfare=vprice * vdistance;
+            vfare=vfare.toFixed(2);
+            $("#fare").val(vfare);
+        }
+};
+function select_ok()
+{
+
+     var vtds=$(".radiott:checked").parent().parent().children();
+
+     if ($(".radiott:checked").length == 0)
+     {
+       alert('请先选择！');
+       return false;
+     }
+     var vcarid=$(".radiott:checked").attr('id');
+
+     var vplate_number=vtds.eq(1).text();
+
+     var vdriver=vtds.eq(2).text();
+
+     var vprice=vtds.eq(3).text();
+
+
+     $("#car_id").val(vcarid);
+     $("#plate_number").val(vplate_number);
+     $("#driver").val(vdriver);
+     $("#price").val(vprice);
+     getfare();
+     $('#myModal').modal('hide')
+};
+
+
+</script>
+{% endblock %}
